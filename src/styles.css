@@ -17,10 +17,21 @@ main {
 
 .asset-map-editor {
   display: grid;
-  grid-template-columns: 16rem minmax(0, 1fr);
+  grid-template-columns: 16rem 20rem minmax(0, 1fr);
   gap: 1rem;
   height: calc(100vh - 7rem);
   min-height: 28rem;
+}
+
+.asset-map-editor:not(.editor-open) {
+  grid-template-columns: 16rem minmax(0, 1fr);
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .asset-list {
@@ -53,6 +64,61 @@ main {
   background: #eff6ff;
 }
 
+.asset-form-panel {
+  overflow-y: auto;
+  border-right: 1px solid #d1d5db;
+  padding-right: 1rem;
+}
+
+.asset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.asset-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.asset-form input,
+.asset-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+.asset-form textarea {
+  min-height: 4rem;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.primary-button,
+.secondary-button {
+  border: 1px solid #2563eb;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.primary-button {
+  color: #ffffff;
+  background: #2563eb;
+}
+
+.secondary-button {
+  color: #2563eb;
+  background: #ffffff;
+}
+
 .asset-map {
   min-width: 0;
   min-height: 0;
@@ -81,7 +147,7 @@ main {
 @media (max-width: 700px) {
   .asset-map-editor {
     grid-template-columns: 1fr;
-    grid-template-rows: 14rem minmax(24rem, 1fr);
+    grid-template-rows: 14rem minmax(20rem, auto) minmax(24rem, 1fr);
     height: auto;
   }
 
