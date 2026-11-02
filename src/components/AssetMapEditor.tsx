@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { fetchAssets } from "../api/assetsApi";
+import type { Asset, MapViewProps } from "../types";
 
 const markerIcon = L.divIcon({
   className: "asset-marker",
@@ -11,7 +12,7 @@ const markerIcon = L.divIcon({
   popupAnchor: [0, -12],
 });
 
-function MapView({ assets, selectedAsset }) {
+function MapView({ assets, selectedAsset }: MapViewProps) {
   const map = useMap();
 
   useEffect(() => {
@@ -37,31 +38,36 @@ function MapView({ assets, selectedAsset }) {
 }
 
 export function AssetMapEditor() {
-  const [assets, setAssets] = useState([]);
-  const [selectedAsset, setSelectedAsset] = useState(null);
+  const [assets, setAssets] = useState<Asset[]>([]);
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
   const [loadError, setLoadError] = useState("");
 
   useEffect(() => {
     let active = true;
 
-    fetchAssets()
-      .then((points) => {
+    async function loadAssets() {
+      try {
+        const points = await fetchAssets();
         if (active) {
           setAssets(points);
         }
-      })
-      .catch(() => {
+      } catch (error) {
         if (active) {
-          setLoadError("Unable to load assets.");
+          setLoadError(
+            error instanceof Error ? error.message : "Unable to load assets.",
+          );
         }
-      });
+      }
+    }
+
+    void loadAssets();
 
     return () => {
       active = false;
     };
   }, []);
 
-  const selectAsset = (asset) => {
+  const selectAsset = (asset: Asset) => {
     setSelectedAsset(asset);
   };
 
