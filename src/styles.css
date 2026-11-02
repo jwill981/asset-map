@@ -144,6 +144,42 @@ main {
   box-shadow: 0 1px 4px rgb(0 0 0 / 50%);
 }
 
+.asset-popup {
+  min-width: 16rem;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.popup-header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.asset-popup dl {
+  margin-bottom: 0;
+}
+
+.asset-popup dt {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.asset-popup dd {
+  margin-left: 0;
+  overflow-wrap: anywhere;
+}
+
+.asset-popup-image {
+  width: auto;
+  max-width: 100%;
+  max-height: 2.5rem;
+  object-fit: cover;
+}
+
 @media (max-width: 700px) {
   .asset-map-editor {
     grid-template-columns: 1fr;

@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import type { Asset } from "../types";
+import { FormActions } from "./FormActions";
 
 type AssetFormProps = {
   asset: Asset | null;
@@ -60,6 +61,7 @@ export function AssetForm({
     <aside className="asset-form-panel" aria-label="Asset form">
       <h2>{isCreating ? "Create asset" : "Edit asset"}</h2>
       <form className="asset-form" onSubmit={submit}>
+        <FormActions onCancel={onCancel} />
         <label>
           Name
           <input value={form.name} onChange={(event) => updateField("name", event.target.value)} required />
@@ -112,10 +114,7 @@ export function AssetForm({
           Types (comma-separated)
           <input value={form.types} onChange={(event) => updateField("types", event.target.value)} />
         </label>
-        <div className="form-actions">
-          <button type="submit" className="primary-button">Save</button>
-          <button type="button" className="secondary-button" onClick={onCancel}>Cancel</button>
-        </div>
+        <FormActions onCancel={onCancel} />
       </form>
     </aside>
   );

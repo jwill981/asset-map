@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import L from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import type { Asset } from "../types";
+import { AssetPopup } from "./AssetPopup";
 
 type MapProps = {
   assets: Asset[];
@@ -65,7 +66,7 @@ export function Map({ assets, selectedAsset, onSelectAsset }: MapProps) {
               click: () => onSelectAsset(asset),
             }}
           >
-            <Popup>{asset.name}</Popup>
+            <AssetPopup asset={asset} />
           </Marker>
         ))}
       </MapContainer>
