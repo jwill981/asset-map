@@ -17,8 +17,3 @@ export type Asset = {
 export type AssetsResponse = {
   data: Asset[];
 };
-
-export type MapViewProps = {
-  assets: Asset[];
-  selectedAsset: Asset | null;
-};
