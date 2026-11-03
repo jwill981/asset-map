@@ -17,8 +17,12 @@ export function AssetPopup({ asset }: AssetPopupProps) {
         </div>
 
         <dl>
-          <dt>Description</dt>
-          <dd>{asset.description || "Not provided"}</dd>
+          {asset.description && (
+            <>
+              <dt>Description</dt>
+              <dd>{asset.description}</dd>
+            </>
+          )}
 
           <dt>Point ID</dt>
           <dd>{asset.pointId}</dd>

@@ -33,6 +33,26 @@ export function AssetMapEditor() {
     setIsCreating(true);
   };
 
+  const openCreateEditorAt = (lat: number, lng: number) => {
+    setSelectedAsset(null);
+    setEditorAsset({
+      arcColor: "",
+      description: "",
+      groupId: 0,
+      groupName: "",
+      image: "",
+      lat,
+      link: "",
+      lng,
+      name: "",
+      pointColor: "",
+      pointId: 0,
+      state: "",
+      types: [],
+    });
+    setIsCreating(true);
+  };
+
   const openEditEditor = (asset: Asset) => {
     setSelectedAsset(asset);
     setEditorAsset(asset);
@@ -80,7 +100,17 @@ export function AssetMapEditor() {
           onSave={saveAsset}
         />
       ) : null}
-      <Map assets={assets} selectedAsset={selectedAsset} onSelectAsset={openEditEditor} />
+      <div className="map-section">
+        <p className="map-instructions">
+          Right-click on the map to create an asset at that location.
+        </p>
+        <Map
+          assets={assets}
+          selectedAsset={selectedAsset}
+          onSelectAsset={openEditEditor}
+          onCreateAssetAt={openCreateEditorAt}
+        />
+      </div>
     </section>
   );
 }
