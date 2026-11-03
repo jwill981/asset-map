@@ -49,6 +49,20 @@ main {
   padding: 0;
 }
 
+.asset-search {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  border: 2px solid #6b7280;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
+
+.asset-search:focus {
+  border-color: #2563eb;
+  outline: 2px solid rgb(37 99 235 / 20%);
+}
+
 .asset-item {
   width: 100%;
   border: 1px solid #d1d5db;

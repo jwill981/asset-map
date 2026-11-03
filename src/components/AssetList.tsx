@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Asset } from "../types";
 
 type AssetListProps = {
@@ -15,6 +16,17 @@ export function AssetList({
   onCreateAsset,
   onSelectAsset,
 }: AssetListProps) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+  const filteredAssets = assets.filter((asset) => {
+    const matchesName = asset.name.toLowerCase().includes(normalizedSearch);
+    const matchesPointId = asset.pointId
+      .toString()
+      .includes(normalizedSearch);
+
+    return matchesName || matchesPointId;
+  });
+
   return (
     <aside className="asset-list" aria-label="Assets">
       <div className="list-header">
@@ -23,10 +35,20 @@ export function AssetList({
           Create asset
         </button>
       </div>
+      <input
+        type="search"
+        className="asset-search"
+        placeholder="Search by name or point ID"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+      />
       {loadError && <p role="alert">{loadError}</p>}
       {!loadError && assets.length === 0 && <p>Loading assets...</p>}
+      {!loadError && assets.length > 0 && filteredAssets.length === 0 && (
+        <p>No matching assets.</p>
+      )}
       <ul>
-        {assets.map((asset) => (
+        {filteredAssets.map((asset) => (
           <li key={asset.pointId}>
             <button
               type="button"
