@@ -1,8 +1,16 @@
 import { useEffect } from "react";
 import L, { type LeafletMouseEvent } from "leaflet";
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
+import {
+  GeoJSON,
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
 import type { Asset } from "../types";
 import { AssetPopup } from "./AssetPopup";
+import ksMoBoundaries from "../data/ks-mo.json";
+import type { FeatureCollection } from "geojson";
 
 type MapProps = {
   assets: Asset[];
@@ -67,11 +75,13 @@ export function Map({
   onSelectAsset,
   onCreateAssetAt,
 }: MapProps) {
+  const stateBoundaries = ksMoBoundaries as FeatureCollection;
+
   return (
     <div className="asset-map">
       <MapContainer
-        center={[40.7532, -73.9822]}
-        zoom={11}
+        center={[39.0997, -94.5786]}
+        zoom={9}
         className="map-canvas"
         scrollWheelZoom
       >
@@ -83,6 +93,14 @@ export function Map({
           assets={assets}
           selectedAsset={selectedAsset}
           onCreateAssetAt={onCreateAssetAt}
+        />
+        <GeoJSON
+          data={stateBoundaries}
+          style={{
+            color: "#000000",
+            weight: 2,
+            fillOpacity: 0,
+          }}
         />
         {assets.map((asset) => (
           <Marker
